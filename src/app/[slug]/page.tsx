@@ -97,7 +97,7 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
 
         <div className="h-[2px] bg-gray-100" />
         <Add
-          productId={product._id}
+          productId={product._id!}
           stockNumber={product.stock?.quantity || 0}
         />
         <div className="h-[2px] bg-gray-100" />

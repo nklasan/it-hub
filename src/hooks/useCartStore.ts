@@ -10,7 +10,7 @@ type CartState = {
   addItem: (
     wixClient: WixClient,
     productId: string,
-    variantId: string,
+    // variantId: string,
     quantity: number
   ) => void;
   removeItem: (wixClient: WixClient, itemId: string) => void;
@@ -32,7 +32,7 @@ export const useCartStore = create<CartState>((set) => ({
       set((prev) => ({ ...prev, isLoading: false }));
     }
   },
-  addItem: async (wixClient, productId, variantId, quantity) => {
+  addItem: async (wixClient, productId, quantity) => {
     set((state) => ({ ...state, isLoading: true }));
     const response = await wixClient.currentCart.addToCurrentCart({
       lineItems: [
@@ -40,7 +40,7 @@ export const useCartStore = create<CartState>((set) => ({
           catalogReference: {
             appId: process.env.NEXT_PUBLIC_WIX_APP_ID!,
             catalogItemId: productId,
-            ...(variantId && { options: { variantId } }),
+            // ...(variantId && { options: { variantId } }),
           },
           quantity: quantity,
         },

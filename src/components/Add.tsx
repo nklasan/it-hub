@@ -6,11 +6,11 @@ import { useState } from "react";
 
 const Add = ({
   productId,
-  variantId,
+  // variantId,
   stockNumber,
 }: {
   productId: string;
-  variantId: string;
+  // variantId: string;
   stockNumber: number;
 }) => {
   const [quantity, setQuantity] = useState(1);
@@ -63,7 +63,7 @@ const Add = ({
           ""
         ) : (
           <button
-            onClick={() => addItem(wixClient, productId, variantId, quantity)}
+            onClick={() => addItem(wixClient, productId, quantity)}
             disabled={isLoading}
             className="buttonStyle"
           >
