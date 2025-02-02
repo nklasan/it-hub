@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+
+
 const PrivacyRules = () => {
   return (
     <div className="mt-8 w-full px-4 md:px-8 lg:px-16 xl:32 2xl:px-64 space-y-12 bg-zinc-200 bg-opacity-5 text-zinc-700">
