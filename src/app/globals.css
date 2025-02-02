@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Roboto", serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px; /* Širina scrollbara */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Boja pozadine scroll trake */
+  border-radius: 10px; /* Zaobljenje trake */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Boja thumb-a (pokretne kuglice) */
+  border-radius: 10px; /* Zaobljenje thumb-a */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Boja thumb-a pri hover-u */
+}
+
+@layer base {
+  .titleStyle {
+    @apply text-zinc-800 font-semibold;
+  }
+  .textStyle {
+    @apply text-zinc-700 font-normal;
+  }
+  .elipseButton {
+    @apply rounded-full h-8 py-6 px-3 ring-2 ring-opacity-50 ring-zinc-900 bg-transparent text-zinc-900 text-sm uppercase hover:bg-zinc-900 hover:text-white transition-all ease-in-out hover:bg-opacity-85 hover:shadow-lg hover:scale-105;
+  }
+  .darkButton {
+    @apply rounded-md h-10 py-2 px-4 bg-zinc-900 text-zinc-100 ring-2 ring-zinc-500 ring-opacity-50 font-semibold uppercase hover:bg-zinc-700 hover:text-white transition-all ease-in-out hover:bg-opacity-85 hover:shadow-lg hover:scale-105;
+  }
+  .buttonStyle {
+    @apply rounded-lg h-8 py-2 px-4 bg-lama text-zinc-100 text-sm uppercase hover:bg-pink-400 transition-all ease-in-out hover:bg-opacity-85 hover:shadow-lg hover:scale-105;
+  }
+  .buttonStyle2 {
+    @apply rounded-lg h-8 py-2 px-4 bg-zinc-900 text-zinc-100 text-sm uppercase hover:bg-zinc-700 hover:text-white transition-all ease-in-out hover:bg-opacity-85 hover:shadow-lg hover:scale-105;
+  }
+  .buttonStyle3 {
+    @apply rounded-lg h-8 py-2 px-4 ring-1 ring-zinc-900 bg-transparent text-zinc-900 text-sm uppercase hover:bg-zinc-900 hover:text-white transition-all ease-in-out hover:bg-opacity-85 hover:shadow-lg hover:scale-105;
+  }
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: #8b5cf6;
+  border-radius: 8px;
+  border: 2px solid #f5f5f5;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 8px;
+}
+
+.scrollable-container {
+  scrollbar-width: thin;
+  scrollbar-color: #f35c7a rgb(244 244 245);
+}
