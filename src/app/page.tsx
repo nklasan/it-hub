@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import CategoryList from "@/components/CategoryList";
 import Loader from "@/components/Loader";
 import ProductList from "@/components/ProductList";
