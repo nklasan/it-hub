@@ -18,6 +18,8 @@ const monthlyPay = (price: number): number => {
   return price / 24;
 };
 
+export const dynamic = "force-dynamic";
+
 const SinglePage = async ({ params }: { params: { slug: string } }) => {
   const product = await getProduct(params.slug); // Koristi server action
 
@@ -33,9 +35,13 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
       </div>
       {/* tekst */}
       <div className="w-full lg:w-1/2 flex flex-col gap-6">
-        <h1 className="text-3xl text-zinc-700 uppercase font-medium">{product.name}</h1>
+        <h1 className="text-3xl text-zinc-700 uppercase font-medium">
+          {product.name}
+        </h1>
         <div className="flex flex-col px-4 py-4 h-auto bg-zinc-100 bg-opacity-50 ring-1 ring-zinc-100 ring-opacity-50">
-          <span className="text-zinc-600 text-lg">Cena za online poručivanje</span>
+          <span className="text-zinc-600 text-lg">
+            Cena za online poručivanje
+          </span>
           <span className="text-2xl text-lama font-bold">
             {formatPrice(product.price?.discountedPrice || 0)}
           </span>
@@ -44,7 +50,8 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
           <div className="flex flex-col justify-start">
             <span className="text-zinc-700">Rata putem WEB kredita</span>
             <span className="font-medium text-zinc-800 text-lg">
-              24 x {formatPrice(monthlyPay(product.price?.discountedPrice || 0))}
+              24 x{" "}
+              {formatPrice(monthlyPay(product.price?.discountedPrice || 0))}
             </span>
           </div>
           {product.stock?.inventoryStatus === "IN_STOCK" ? (
@@ -54,14 +61,20 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
                   size={38}
                   className="px-2 py-1 border-2 border-zinc-100 bg-green-700 rounded-md text-zinc-100"
                 />
-                <p className="text-zinc-700 font-medium"> Raspoloživo u radnji</p>
+                <p className="text-zinc-700 font-medium">
+                  {" "}
+                  Raspoloživo u radnji
+                </p>
               </span>
               <span className="flex flex-row gap-1 items-center">
                 <FaTruckFast
                   size={38}
                   className="px-2 py-1 border-2 border-zinc-100 bg-zinc-800 rounded-md text-zinc-100"
                 />
-                <p className="text-zinc-700 font-medium"> Dostupno za isporuku</p>
+                <p className="text-zinc-700 font-medium">
+                  {" "}
+                  Dostupno za isporuku
+                </p>
               </span>
             </div>
           ) : (
@@ -71,21 +84,30 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
                   size={38}
                   className="px-2 py-1 border-2 border-zinc-100 bg-lama rounded-md text-zinc-100"
                 />
-                <p className="text-zinc-700 font-medium"> Proizvod nije dostupan u radnji</p>
+                <p className="text-zinc-700 font-medium">
+                  {" "}
+                  Proizvod nije dostupan u radnji
+                </p>
               </span>
               <span className="flex flex-row gap-1 items-center">
                 <FaTruckFast
                   size={38}
                   className="px-2 py-1 border-2 border-zinc-100 bg-zinc-800 rounded-md text-zinc-100"
                 />
-                <p className="text-zinc-700 font-medium"> Dostupno za isporuku</p>
+                <p className="text-zinc-700 font-medium">
+                  {" "}
+                  Dostupno za isporuku
+                </p>
               </span>
             </div>
           )}
         </div>
 
         <div className="h-[2px] bg-gray-100" />
-        <Add productId={product._id ?? ""} stockNumber={product.stock?.quantity || 0} />
+        <Add
+          productId={product._id ?? ""}
+          stockNumber={product.stock?.quantity || 0}
+        />
         <div className="h-[2px] bg-gray-100" />
         {product.additionalInfoSections?.map((section: any) => (
           <div className="text-sm" key={section.title}>

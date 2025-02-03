@@ -5,6 +5,8 @@ import Image from "next/image";
 import { Suspense} from "react";
 import Loader from "@/components/Loader";
 
+export const dynamic = "force-dynamic"
+
 const ListPage = async ({ searchParams }: { searchParams: any }) => {
   console.log("Search params:", searchParams); // Debug
 
