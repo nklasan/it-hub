@@ -1,37 +1,29 @@
 import Add from "@/components/Add";
 import ProductImages from "@/components/ProductImages";
-import { wixClientServer } from "@/lib/wixClientServer";
 import { notFound } from "next/navigation";
 import { FaStore } from "react-icons/fa";
 import { FaTruckFast } from "react-icons/fa6";
+import { getProduct } from "@/lib/getProduct";
+
+const formatPrice = (price: number): string =>
+  new Intl.NumberFormat("sr-RS", {
+    style: "currency",
+    currency: "RSD",
+  }).format(price);
+
+const monthlyPay = (price: number): number => {
+  if (price <= 0) {
+    throw new Error("Cena mora biti veća od nule.");
+  }
+  return price / 24;
+};
 
 const SinglePage = async ({ params }: { params: { slug: string } }) => {
-  const formatPrice = (price: number): string =>
-    new Intl.NumberFormat("sr-RS", {
-      style: "currency",
-      currency: "RSD",
-    }).format(price);
+  const product = await getProduct(params.slug); // Koristi server action
 
-  const monthlyPay = (price: number): number => {
-    if (price <= 0) {
-      throw new Error("Cena mora biti veća od nule.");
-    }
-    const pay = price / 24;
-    return pay;
-  };
-
-  const wixClient = await wixClientServer();
-
-  const products = await wixClient.products
-    .queryProducts()
-    .eq("slug", params.slug)
-    .find();
-
-  if (!products.items[0]) {
+  if (!product) {
     return notFound();
   }
-
-  const product = products.items[0];
 
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:32 2xl:px-64 relative flex flex-col lg:flex-row gap-16 mt-10 mb-12">
@@ -43,22 +35,20 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
       <div className="w-full lg:w-1/2 flex flex-col gap-6">
         <h1 className="text-3xl text-zinc-700 uppercase font-medium">{product.name}</h1>
         <div className="flex flex-col px-4 py-4 h-auto bg-zinc-100 bg-opacity-50 ring-1 ring-zinc-100 ring-opacity-50">
-          <span className="text-zinc-600 text-lg">
-            Cena za online poručivanje
-          </span>
+          <span className="text-zinc-600 text-lg">Cena za online poručivanje</span>
           <span className="text-2xl text-lama font-bold">
-            {formatPrice(product.price?.discountedPrice!)}
+            {formatPrice(product.price?.discountedPrice || 0)}
           </span>
         </div>
         <div className="flex flex-row justify-between">
           <div className="flex flex-col justify-start">
             <span className="text-zinc-700">Rata putem WEB kredita</span>
             <span className="font-medium text-zinc-800 text-lg">
-              24 x {formatPrice(monthlyPay(product.price?.discountedPrice!))}
+              24 x {formatPrice(monthlyPay(product.price?.discountedPrice || 0))}
             </span>
           </div>
-          {
-            product.stock?.inventoryStatus! === 'IN_STOCK' ? (          <div className="flex flex-col gap-2 justify-end">
+          {product.stock?.inventoryStatus === "IN_STOCK" ? (
+            <div className="flex flex-col gap-2 justify-end">
               <span className="flex flex-row gap-1 items-center">
                 <FaStore
                   size={38}
@@ -73,7 +63,9 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
                 />
                 <p className="text-zinc-700 font-medium"> Dostupno za isporuku</p>
               </span>
-            </div>) : (<div className="flex flex-col gap-2 justify-end">
+            </div>
+          ) : (
+            <div className="flex flex-col gap-2 justify-end">
               <span className="flex flex-row gap-1 items-center">
                 <FaStore
                   size={38}
@@ -88,18 +80,12 @@ const SinglePage = async ({ params }: { params: { slug: string } }) => {
                 />
                 <p className="text-zinc-700 font-medium"> Dostupno za isporuku</p>
               </span>
-            </div>)
-            
-          }
-
-
+            </div>
+          )}
         </div>
 
         <div className="h-[2px] bg-gray-100" />
-        <Add
-          productId={product._id ?? ""}
-          stockNumber={product.stock?.quantity || 0}
-        />
+        <Add productId={product._id ?? ""} stockNumber={product.stock?.quantity || 0} />
         <div className="h-[2px] bg-gray-100" />
         {product.additionalInfoSections?.map((section: any) => (
           <div className="text-sm" key={section.title}>
