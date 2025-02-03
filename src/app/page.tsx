@@ -4,6 +4,9 @@ import ProductList from "@/components/ProductList";
 import Slider from "@/components/Slider";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
+
 const HomePage = async () => {
   return (
     <div className="">
